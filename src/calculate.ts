@@ -40,8 +40,9 @@ export const getAllMultipliers = (multipliers: Array<number>, bonus: number) => 
     .value()
 };
 
-export const calculateAll = (multipliers: Array<number>, target: number) => {
+export const calculateAll = (multipliers: Array<number>, gained: number, target: number) => {
   const singularResults = [];
+  target = target - gained;
   for(let multIndex = 0; multIndex < multipliers.length; multIndex++) {
     const mult = multipliers[multIndex];
     const singular = calculateSingular(mult, target);

@@ -10,6 +10,9 @@ type Props = {
   multipliers: Multipliers,
   onMultipliersChange(value: Multipliers): void,
 
+  gainedPoints: number | '',
+  onGainedPointsChange(value: number | ''): void,
+
   targetPoints: number | '',
   onTargetPointsChange(value: number | ''): void,
 
@@ -18,6 +21,9 @@ type Props = {
 };
 
 const Form: React.FC<Props> = ({
+  gainedPoints,
+  onGainedPointsChange,
+
   targetPoints,
   onTargetPointsChange,
 
@@ -29,10 +35,23 @@ const Form: React.FC<Props> = ({
 }) => {
   const [numOfMultipliers, setNumOfMultipliers] = useState(0);
   useEffect(() => {
-    setNumOfMultipliers(Object.values(multipliers).length - 1);
+    const numOfMultipliers = Object.values(multipliers).length;
+    setNumOfMultipliers( numOfMultipliers ? numOfMultipliers - 1 : 0);
   }, [multipliers]);
   return (
     <div className="b-Form">
+      <div className="b-Form__line">
+        <div className="b-Form__caption">
+          Уже набрано
+        </div>
+        <input
+            name="gainedPoints"
+            type="number"
+            placeholder="0"
+            value={gainedPoints}
+            onChange={(e) => onGainedPointsChange(intOrEmpty(e.target.value))}
+        />
+      </div>
       <div className="b-Form__line">
         <div className="b-Form__caption">
           Сколько нужно набрать
